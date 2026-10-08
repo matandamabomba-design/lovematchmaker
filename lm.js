@@ -1,5 +1,5 @@
 // ============================================================
-// LOVE MATCH MAKER - lm.js
+// LOVE MATCH MAKER - lm.js (fixed version)
 // Every line has a comment above it that explains what it does.
 // ============================================================
 
@@ -7,6 +7,7 @@
 // ---------- PART 1: FUNCTIONS THAT WORK OUT THE SCORE ----------
 
 // Create a function called calculateMatch. It receives two names (its inputs, called parameters).
+// NOTE: the app no longer uses this function, because the assignment asks for a random score.
 function calculateMatch(name1, name2) {
   // Put the two names in a list, make each one lowercase, sort them A to Z, then glue them into one text.
   // Lowercase means "Grace" and "grace" give the same result; sorting means the order typed does not matter.
@@ -27,8 +28,7 @@ function calculateMatch(name1, name2) {
 // End of the calculateMatch function.
 }
 
-// Create a second function that gives a random score instead of a score from the names.
-// It is not used unless you switch to it in PART 4 (see the note there).
+// Create a function that gives a random score. It needs no inputs, because the score does not depend on the names.
 function getRandomScore() {
   // Math.random() gives a decimal from 0 up to just under 1. Times 101 makes it 0 to just under 101.
   // Math.floor() rounds down to a whole number, so the result is from 0 to 100. Send it back.
@@ -42,11 +42,12 @@ function getRandomScore() {
 // A list of four different heart emojis. One will be chosen at random for each small heart.
 const heartEmojis = ["💖", "💗", "💕", "💘"];
 
-// Stop the function if there are already 150 small hearts on the page. This prevents the page from slowing down.
-if (document.querySelectorAll(".small-heart").length > 150) return;
-
 // Create a function called launchHearts. count is how many small hearts to make.
 function launchHearts(count) {
+  // If there are already more than 150 small hearts on the page, stop. This keeps the page from slowing down.
+  // This line must be INSIDE the function, because return is only allowed inside a function.
+  if (document.querySelectorAll(".small-heart").length > 150) return;
+
   // Repeat the code below count times. i starts at 0 and goes up by 1 each time.
   for (let i = 0; i < count; i++) {
     // Make a new, empty span element in memory. It is not on the page yet.
@@ -135,19 +136,16 @@ form.addEventListener("submit", function (e) {
   // End of the same-name check.
   }
 
+  // ----- Work out the score -----
+
+  // Call getRandomScore and keep the number it gives back in percent. The score is random, as the assignment asks.
+  const percent = getRandomScore();
+
   // ----- Make some small hearts float up the screen -----
 
   // If the screen is less than 600 pixels wide, make 20 hearts. Otherwise, make 40 hearts.
+  // This is the ONLY launchHearts call. It only runs when both validation checks passed.
   launchHearts(window.innerWidth < 600 ? 20 : 40);
-
-  // ----- Work out the score -----
-
-  // Call getRandomScore with the two names and keep the number it gives back in percent.
-  // To use a random score instead (as the assignment asks), change this line to: const percent = getRandomScore();
-  const percent = getRandomScore(you, partner);
-
-  // Make 15 small hearts float up the screen. This only runs when both validation checks passed.
-  launchHearts(60);
 
   // ----- Show the result -----
 
