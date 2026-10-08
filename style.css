@@ -2,6 +2,11 @@
     box-sizing: border-box;
 }
 body {
+    background-color: #2b0a1a;
+    background-image: linear-gradient(rgba(60, 0, 30, 0.5), rgba(60, 0, 30, 0.5)),url("lovers.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     display:flex;
     flex-direction: column;
     align-items: center;
